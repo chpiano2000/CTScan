@@ -1,7 +1,6 @@
 from pymongo import MongoClient
 from pydantic import EmailStr
 from bson.objectid import ObjectId
-from pydantic import EmailStr
 
 from ..core.security import get_password_hash 
 from ..core.config import database_name, users_collection_name
