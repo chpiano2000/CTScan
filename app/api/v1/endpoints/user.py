@@ -5,6 +5,6 @@ from ....models.user import UserInLogin
 
 router = APIRouter()
 
-@router.post("/patient")
+@router.post("/doctor", tags=["Doctors"])
 def ok():
     return "ok"
