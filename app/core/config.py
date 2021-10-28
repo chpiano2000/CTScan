@@ -9,6 +9,7 @@ PROJECT_NAME = config("PROJECT_NAME")
 MONGODB_URI = config("MONGODB_URI")
 SECRET_KEY = config("SECRET_KEY")
 
+
 database_name = PROJECT_NAME
 users_collection_name = "users"
 patient_collection_name = "patient"
