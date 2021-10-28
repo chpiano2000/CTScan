@@ -27,9 +27,10 @@ def generate_token(email: str, role: str, expires_delta: Optional[timedelta] = N
 def validate_token(http_authorization_credentials=Depends(reusable_oauth2)) -> str:
     try:
         payload = jwt.decode(http_authorization_credentials.credentials, SECRET_KEY, algorithms=[ALGORITHM])
-        if payload.get('exp') < datetime.now():
+        exp = payload.get('exp') 
+        if datetime.fromtimestamp(exp) < datetime.now():
             raise HTTPException(status_code=403, detail="Token expired")
-        return payload 
+        return payload.get("role") 
     except(jwt.PyJWTError, ValidationError):
         raise HTTPException(
             status_code=403,
