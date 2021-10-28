@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Body, Depends, Request, HTTPException
-from ....core.jwt import reusable_oauth2
+from ....core.jwt import reusable_oauth2, validate_token
 
 router = APIRouter()
 
