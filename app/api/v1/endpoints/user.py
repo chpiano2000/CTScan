@@ -35,7 +35,7 @@ def retrieve_one_doctor(
         return data
 
 @router.post("/doctor/add", tags=["Doctors"])
-def update_current_doctor(
+def add_current_doctor(
     doctor: User,
     db: MongoClient=Depends(get_database),
     auth: str=Depends(validate_token)
@@ -53,7 +53,7 @@ def update_current_doctor(
             return data
 
 @router.put("/doctor/{email}/update", tags=["Doctors"])
-def update_current_user(
+def update_current_doctor(
     email: str,
     doctor: UserInUpdate = Depends(),
     db: MongoClient=Depends(get_database),
