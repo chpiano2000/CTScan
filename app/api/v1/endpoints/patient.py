@@ -16,7 +16,7 @@ def retrieve_patient(db: MongoClient = Depends(get_database)):
     return data
 
 @router.post("/patient/add", dependencies=[Depends(validate_token)], tags=["Patient"])
-def add_patient(patient: Patient, db: MongoClient = Depends(get_database)):
+def add_patient(patient: Patient = Depends(), db: MongoClient = Depends(get_database)):
     check = get_patient_by_email(db, patient.email)
     if len(check) > 0:
         raise HTTPException(status_code=403, detail="Patient Exists")
@@ -28,7 +28,7 @@ def add_patient(patient: Patient, db: MongoClient = Depends(get_database)):
 @router.put("/patient/{patientId}/update", dependencies=[Depends(validate_token)], tags=["Patient"])
 def update_current_patient(
     patientId: str,
-    patient: PatientInUpdate,
+    patient: PatientInUpdate = Depends(),
     db: MongoClient = Depends(get_database)
 ):
     check = get_patient(db, patientId)
