@@ -52,23 +52,23 @@ def update_current_doctor(
             create_user(db, doctor)
             return data
 
-# @router.put("/doctor/{email}/update", tags=["Doctors"])
-# def update_current_user(
-#     email: EmailStr,
-#     doctor: UserInUpdate,
-#     db: MongoClient=Depends(get_database),
-#     auth: str=Depends(validate_token)
-# ):
-#     token = auth
-#     if token != "admin":
-#         raise HTTPException(status_code=401, detail="not authorized")
-#     else:
-#         check = get_user(db, doctor)
-#         if len(check) < 0:
-#             raise HTTPException(status_code=403, detail="User Not found")
-#         else:
-#             update_user(db, doctor, email)
-#             return doctor.dict()
+@router.put("/doctor/{email}/update", tags=["Doctors"])
+def update_current_user(
+    email: str,
+    doctor: UserInUpdate = Depends(),
+    db: MongoClient=Depends(get_database),
+    auth: str=Depends(validate_token)
+):
+    token = auth
+    if token != "admin":
+        raise HTTPException(status_code=401, detail="not authorized")
+    else:
+        check = get_user(db, doctor)
+        if len(check) < 0:
+            raise HTTPException(status_code=403, detail="User Not found")
+        else:
+            update_user(db, doctor, email)
+            return doctor.dict()
 
             
 @router.delete("/doctor/{email}/delete", tags=["Doctors"])

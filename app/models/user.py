@@ -12,7 +12,7 @@ class UserInLogin(BaseModel):
     email: str
     password: str
 
-class UserInUpdate:
+class UserInUpdate(BaseModel):
     password: Optional[str] = None
     firstName: Optional[str] = None
     lastName: Optional[str] = None
