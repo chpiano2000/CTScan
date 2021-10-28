@@ -9,7 +9,7 @@ class User(BaseModel):
     gender: str
 
 class UserInLogin(BaseModel):
-    email: EmailStr
+    email: str
     password: str
 
 class UserInUpdate:
