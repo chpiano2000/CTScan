@@ -14,11 +14,11 @@ from ....models.admin import Admin
 router = APIRouter()
 
 @router.post("/user/login", tags=["Authentication"])
-def login(user: UserInLogin, db: MongoClient = Depends(get_database)):
-    dbuser = get_user(db, user.email)
+def login(email, password, db: MongoClient = Depends(get_database)):
+    dbuser = get_user(db, email)
     if len(dbuser) > 0:
-        if verify_password(user.password, dbuser[0]['password']):
-            token = generate_token(email=user.email, role="doctor", expires_delta=ACCESS_TOKEN_EXPIRE_MINUTES)
+        if verify_password(password, dbuser[0]['password']):
+            token = generate_token(email=email, role="doctor", expires_delta=ACCESS_TOKEN_EXPIRE_MINUTES)
             return {"token": token} 
         else:
             raise HTTPException(status_code=400, detail="Incorect email or password")
