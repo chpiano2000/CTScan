@@ -12,6 +12,7 @@ SECRET_KEY = config("SECRET_KEY")
 
 s3 = boto3.resource('s3')
 bucket = s3.Bucket('final-web-usth')
+location = boto3.client('s3').get_bucket_location(Bucket='final-web-usth')['LocationConstraint']
 
 database_name = PROJECT_NAME
 users_collection_name = "users"
