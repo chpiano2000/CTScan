@@ -21,9 +21,9 @@ def get_patient_by_email(conn: MongoClient, email: EmailStr):
     row = conn[database_name][patient_collection_name].find({"email": email})
     return list(row)
 
-def create_patient(conn: MongoClient, info: Patient):
-    data = info.dict()
-    conn[database_name][patient_collection_name].insert_one(data)
+def create_patient(conn: MongoClient, info):
+    data = info
+    conn[database_name][patient_collection_name].insert_one(info)
     return data
 
 def update_patient(conn: MongoClient, info: PatientInUpdate, patientId: str):
