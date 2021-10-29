@@ -37,7 +37,6 @@ async def get_images(
     data["patient"] = str(data["patient"])
     data["takenBy"] = str(data["takenBy"])
     print(data)
-    pdb.set_trace()
     create_image(db, data)
     return data
 

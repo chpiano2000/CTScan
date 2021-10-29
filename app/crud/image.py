@@ -32,7 +32,6 @@ def get_one_image(conn: MongoClient, imageId: str):
 
 def create_image(conn: MongoClient, info):
     conn[database_name][image_collection_name].insert_one(info)
-    return info
 
 def delete_image(conn: MongoClient, imageId: str):
     conn[database_name][image_collection_name].delete_one({"id": imageId})
