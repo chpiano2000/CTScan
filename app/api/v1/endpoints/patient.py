@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, Body
-from pymongo import MongoClient
+from pymongo import MongoClient, results
 from uuid import uuid4
 
 from starlette.exceptions import HTTPException
@@ -34,8 +34,9 @@ def add_patient(patient: Patient = Depends(), db: MongoClient = Depends(get_data
     else:
         data = patient.dict()
         data["id"] = str(uuid4())
+        results = data.copy()
         create_patient(db, data)
-        return data
+        return results
 
 @router.put("/patient/{patientId}/update", dependencies=[Depends(validate_token)], tags=["Patient"])
 def update_current_patient(
