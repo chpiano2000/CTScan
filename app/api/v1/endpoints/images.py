@@ -33,6 +33,8 @@ def get_images(
     data = info.dict()
     data["image"] = s3_upload(image)
     data["datetime"] = calendar.timegm(time.gmtime())
+    data["patient"] = str(data["patient"])
+    data["takenBy"] = str(data["takenBy"])
     print(data)
     create_image(db, data)
     return data
