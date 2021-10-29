@@ -9,6 +9,7 @@ class Patient(BaseModel):
     gender: str
 
 class PatientInUpdate(BaseModel):
+    email: Optional[EmailStr] = None
     firstName: Optional[str] = None
     lastName: Optional[str] = None
     gender: Optional[str] = None

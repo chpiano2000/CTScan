@@ -29,6 +29,7 @@ def create_patient(conn: MongoClient, info):
 def update_patient(conn: MongoClient, info: PatientInUpdate, patientId: str):
     dbpatient = get_patient(conn, patientId)
 
+    dbpatient[0]["email"] = info.email or dbpatient[0]["email"]
     dbpatient[0]["firstName"] = info.firstName or dbpatient[0]["firstName"]
     dbpatient[0]["lastName"] = info.lastName or dbpatient[0]["lastName"]
     dbpatient[0]["gender"] = info.gender or dbpatient[0]["gender"]
