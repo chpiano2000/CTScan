@@ -17,7 +17,7 @@ async def get_images(
 ):
     with open(image.filename, "wb") as buffer:
         shutil.copyfileobj(image.file, buffer) # save on server 
-        bucket.upload_fileobj(image.file,"cat.jpg") #upload to S3
+        bucket.upload_fileobj(image.file, image.filename)#upload to S3
 
     return {"filename": image.filename} 
     
