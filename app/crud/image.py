@@ -1,4 +1,5 @@
 from pymongo import MongoClient
+from bson.objectid import ObjectId
 from datetime import datetime
 import shutil
 import os
@@ -20,8 +21,8 @@ def create_image(conn: MongoClient, info: ImageInCreate, image):
     data = info.dict()
     data["image"] = s3_upload(image)
     data["datetime"] = datetime.now().timestamp()
-    data["patient"] = str(data["patient"])
-    data["takenBy"] = str(data["takenBy"])
+    data["patient"] = ObjectId(data["patient"])
+    data["takenBy"] = ObjectId(data["takenBy"])
     import pdb
     pdb.set_trace()
     conn[database_name][image_collection_name].insert_one(data)
