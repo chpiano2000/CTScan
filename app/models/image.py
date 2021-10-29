@@ -20,7 +20,7 @@ class ImageInUpdate(BaseModel):
     category: Optional[int] = None 
 
 class ImageInCreate(BaseModel):
-    patient: str
+    patient: ObjectId
     age: int
-    takenBy: str
+    takenBy: ObjectId
     category: str 
