@@ -21,6 +21,7 @@ def create_image(conn: MongoClient, info: ImageInCreate, image):
     data = info.dict()
     data["image"] = s3_upload(image)
     data["datetime"] = datetime.now().timestamp()
+    results = data.copy()
     conn[database_name][image_collection_name].insert_one(data)
-    return info.dict()
+    return results
 
