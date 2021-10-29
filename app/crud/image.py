@@ -39,3 +39,13 @@ def delete_image(conn: MongoClient, imageId: str):
     conn[database_name][image_collection_name].delete_one({"id": imageId})
     return imageId
 
+def update_image(conn: MongoClient, info: ImageInUpdate, imageId: str):
+    dbimage = get_one_image(conn, imageId)
+
+    dbimage[0]["patient"] = info.password or dbimage[0]["patient"]
+    dbimage[0]["takenBy"] =  info.firstName or dbimage[0]["takenBy"]
+    dbimage[0]["date"] =  info.lastName or dbimage[0]["date"]
+    dbimage[0]["category"] = info.gender or dbimage[0]["category"]
+
+    update = conn[database_name][image_collection_name].update_one({"id": imageId}, {"$set": dbimage[0]})
+    return update

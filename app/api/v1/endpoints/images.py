@@ -2,7 +2,9 @@ from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
 from fastapi.types import DecoratedCallable
 from pymongo.mongo_client import MongoClient
 
-from ....crud.image import create_image, get_images, get_one_image, delete_image
+from app.models.patient import Patient
+
+from ....crud.image import create_image, get_images, get_one_image, delete_image, update_image
 from ....db.mongodb import get_database
 from ....core.jwt import validate_token
 from ....models.image import ImageInCreate, ImageInUpdate, Image
@@ -28,12 +30,18 @@ def get_images(
     data = create_image(db, info, image)
     return data
 
-# @router.put("/image/{imageId}/update", dependencies=[Depends(validate_token)], tags=["Images"])
-# def update_current_image(
-#     imageId: str,
-#     info: ImageInUpdate=Depends(),
-#     db: MongoClient=Depends(get_database)
-# ):
+@router.put("/image/{imageId}/update", dependencies=[Depends(validate_token)], tags=["Images"])
+def update_current_image(
+    imageId: str,
+    info: ImageInUpdate=Depends(),
+    db: MongoClient=Depends(get_database)
+):
+    check = get_one_image(db, imageId)
+    if len(check) < 0:
+        raise HTTPException(status_code=403, detail="Image Not found")
+    else:
+        update_image(db, info, imageId)
+        return info.dict()
 
 @router.delete("/image/{imageId}/delete", dependencies=[Depends(validate_token)], tags=["Images"])
 def delete_current_images(

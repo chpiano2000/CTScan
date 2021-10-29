@@ -49,7 +49,6 @@ def update_user(conn: MongoClient, info: UserInUpdate, doctorId: str):
     if info.password:
         get_password_hash(dbuser.password)
 
-    pdb.set_trace() 
     update = conn[database_name][users_collection_name].update_one({"id": doctorId}, {"$set": dbuser[0]})
     return update
 
