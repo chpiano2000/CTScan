@@ -30,7 +30,7 @@ def get_images(
     info: ImageInCreate = Depends(),
     db: MongoClient=Depends(get_database)
 ):
-    print(info)
+    print(type(info))
     # data = create_image(db, info, image)
     return 'ok'
 
