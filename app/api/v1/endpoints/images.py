@@ -24,15 +24,15 @@ def retrive_current_image(imageId: str, db: MongoClient=Depends(get_database)):
     data = get_one_image(db, imageId)
     return data
 
-@router.post("/images/add", dependencies=[Depends(validate_token)], tags=["Images"])
-def get_images(
-    image: UploadFile = File(...),
-    info: ImageInCreate = Depends(),
-    db: MongoClient=Depends(get_database)
-):
-    print(info.dict())
-    data = create_image(db, info, image)
-    return data
+# @router.post("/images/add", dependencies=[Depends(validate_token)], tags=["Images"])
+# def get_images(
+#     image: UploadFile = File(...),
+#     info: ImageInCreate = Depends(),
+#     db: MongoClient=Depends(get_database)
+# ):
+#     print(info.dict())
+#     data = create_image(db, info, image)
+#     return data
 
 @router.put("/image/{imageId}/update", dependencies=[Depends(validate_token)], tags=["Images"])
 def update_current_image(
