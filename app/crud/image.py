@@ -1,6 +1,8 @@
 from datetime import datetime
 from pymongo import MongoClient
 from bson.objectid import ObjectId
+import calendar
+import time
 import shutil
 import os
 
@@ -30,9 +32,13 @@ def get_one_image(conn: MongoClient, imageId: str):
     data = conn[database_name][image_collection_name].find({"id": imageId}, {"_id": 0})
     return list(data)
 
-def create_image(conn: MongoClient, info):
-    conn[database_name][image_collection_name].insert_one(info)
-    return info
+def create_image(conn: MongoClient, info: ImageInCreate, image):
+    data = info.dict()
+    data["image"] = s3_upload(image)
+    data["datetime"] = calendar.timegm(time.gmtime())
+    results = data.copy()
+    conn[database_name][image_collection_name].insert_one(data)
+    return results
 
 def delete_image(conn: MongoClient, imageId: str):
     conn[database_name][image_collection_name].delete_one({"id": imageId})

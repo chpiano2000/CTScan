@@ -1,10 +1,6 @@
 from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
 from pymongo.mongo_client import MongoClient
-import calendar
-import time
-
-from app.models.patient import Patient
 
 from ....crud.image import create_image, get_images, get_one_image, delete_image, update_image, s3_upload
 from ....db.mongodb import get_database
@@ -32,12 +28,8 @@ def get_images(
     info: ImageInCreate = Depends(),
     db: MongoClient=Depends(get_database)
 ):
-    data = info.dict()
-    data["image"] = s3_upload(image)
-    data["datetime"] = calendar.timegm(time.gmtime())
-    results = data.copy()
-    data = create_image(db, info)
-    return results
+    data = create_image(db, info, image)
+    return data
 
 @router.put("/image/{imageId}/update", dependencies=[Depends(validate_token)], tags=["Images"])
 def update_current_image(
