@@ -36,9 +36,9 @@ def add_current_images(
     data["datetime"] = calendar.timegm(time.gmtime())
     data["patient"] = str(data["patient"])
     data["takenBy"] = str(data["takenBy"])
-    print(data)
+    results = data.copy()
     create_image(db, data)
-    return data
+    return results
 
 @router.put("/image/{imageId}/update", dependencies=[Depends(validate_token)], tags=["Images"])
 def update_current_image(
