@@ -1,4 +1,5 @@
 from decouple import config
+import boto3
 
 API_V1_STR = "/api/v1"
 
@@ -9,6 +10,8 @@ PROJECT_NAME = config("PROJECT_NAME")
 MONGODB_URI = config("MONGODB_URI")
 SECRET_KEY = config("SECRET_KEY")
 
+s3 = boto3.resource('s3')
+bucket = s3.Bucket('final-web-usth')
 
 database_name = PROJECT_NAME
 users_collection_name = "users"
