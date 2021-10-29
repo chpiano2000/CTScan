@@ -1,8 +1,6 @@
 from datetime import datetime
 from pymongo import MongoClient
 from bson.objectid import ObjectId
-import calendar
-import time
 import shutil
 import os
 
@@ -19,8 +17,13 @@ def s3_upload(image):
 
     return "https://s3-%s.amazonaws.com/%s/%s" % (location, 'final-web-usth', image.filename)
 
-def get_images(conn: MongoClient):
-    data = conn[database_name][image_collection_name].find({}, {"_id": 0})
+def get_images(conn: MongoClient, options: str = None):
+    if options:
+        query = {"category": options}
+        data = conn[database_name][image_collection_name].find(query, {"_id": 0})
+    else:
+        data = conn[database_name][image_collection_name].find({}, {"_id": 0})
+
     return list(data)
 
 def get_one_image(conn: MongoClient, imageId: str):

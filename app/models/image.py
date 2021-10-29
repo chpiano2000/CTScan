@@ -23,3 +23,4 @@ class ImageInCreate(BaseModel):
     age: int
     takenBy: str
     category: str 
+    disease: str
