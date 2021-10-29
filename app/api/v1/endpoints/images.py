@@ -31,18 +31,18 @@ def get_images(
     data = create_image(db, info, image)
     return data
 
-@router.put("/image/{imageId}/update", dependencies=[Depends(validate_token)], tags=["Images"])
-def update_current_image(
-    imageId: str,
-    info: ImageInUpdate=Depends(),
-    db: MongoClient=Depends(get_database)
-):
-    check = get_one_image(db, imageId)
-    if len(check) < 0:
-        raise HTTPException(status_code=403, detail="Image Not found")
-    else:
-        update_image(db, info, imageId)
-        return info.dict()
+# @router.put("/image/{imageId}/update", dependencies=[Depends(validate_token)], tags=["Images"])
+# def update_current_image(
+#     imageId: str,
+#     info: ImageInUpdate=Depends(),
+#     db: MongoClient=Depends(get_database)
+# ):
+#     check = get_one_image(db, imageId)
+#     if len(check) < 0:
+#         raise HTTPException(status_code=403, detail="Image Not found")
+#     else:
+#         update_image(db, info, imageId)
+#         return info.dict()
 
 @router.delete("/image/{imageId}/delete", dependencies=[Depends(validate_token)], tags=["Images"])
 def delete_current_images(
