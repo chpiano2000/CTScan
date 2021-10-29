@@ -18,10 +18,10 @@ def s3_upload(image):
 
 def create_image(conn: MongoClient, info: ImageInCreate, image):
     data = info.dict()
-    import pdb
-    pdb.set_trace()
     data["image"] = s3_upload(image)
     data["datetime"] = datetime.now().timestamp()
+    import pdb
+    pdb.set_trace()
     conn[database_name][image_collection_name].insert_one(data)
     return data
 
