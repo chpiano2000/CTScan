@@ -34,7 +34,7 @@ def add_patient(patient: Patient = Depends(), db: MongoClient = Depends(get_data
     else:
         data = patient.dict()
         data["id"] = str(uuid4())
-        create_patient(db, patient)
+        create_patient(db, data)
         return data
 
 @router.put("/patient/{patientId}/update", dependencies=[Depends(validate_token)], tags=["Patient"])
