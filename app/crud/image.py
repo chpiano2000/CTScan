@@ -23,8 +23,8 @@ def create_image(conn: MongoClient, info: ImageInCreate, image):
     data["datetime"] = datetime.now().timestamp()
     data["patient"] = ObjectId(data["patient"])
     data["takenBy"] = ObjectId(data["takenBy"])
+    conn[database_name][image_collection_name].insert_one(data)
     import pdb
     pdb.set_trace()
-    conn[database_name][image_collection_name].insert_one(data)
     return data
 
