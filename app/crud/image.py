@@ -1,4 +1,5 @@
 from pymongo import MongoClient
+from datetime import datetime
 import shutil
 import os
 
@@ -18,6 +19,7 @@ def s3_upload(image):
 def create_image(conn: MongoClient, info: ImageInCreate, image):
     data = info.dict()
     data["image"] = s3_upload(image)
+    data["datetime"] = datetime.now().timestamp()
     conn[database_name][image_collection_name].insert_one(data)
     return data
 

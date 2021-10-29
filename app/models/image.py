@@ -23,5 +23,4 @@ class ImageInCreate(BaseModel):
     patient: str
     age: int
     takenBy: str
-    date: datetime
     category: str 
