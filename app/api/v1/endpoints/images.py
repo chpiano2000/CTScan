@@ -30,7 +30,10 @@ def get_images(
     info: ImageInCreate = Depends(),
     db: MongoClient=Depends(get_database)
 ):
-    print(info.dict())
+    data = info.dict()
+    data["image"] = s3_upload(image)
+    data["datetime"] = calendar.timegm(time.gmtime())
+    print(data)
     # data = create_image(db, info, image)
     return 'ok'
 
