@@ -25,7 +25,7 @@ def retrive_current_image(imageId: str, db: MongoClient=Depends(get_database)):
     return data
 
 @router.post("/images/add", dependencies=[Depends(validate_token)], tags=["Images"])
-def get_images(
+async def get_images(
     image: UploadFile = File(...),
     info: ImageInCreate = Depends(),
     db: MongoClient=Depends(get_database)
