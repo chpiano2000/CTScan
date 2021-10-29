@@ -3,7 +3,6 @@ from pydantic import EmailStr, BaseModel
 from typing import Optional
 
 class Patient(BaseModel):
-    id: str
     email: EmailStr
     firstName: str
     lastName: str

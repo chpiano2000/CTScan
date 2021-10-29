@@ -1,6 +1,7 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
-from datetime import datetime
+import calendar
+import time
 import shutil
 import os
 
@@ -20,7 +21,7 @@ def s3_upload(image):
 def create_image(conn: MongoClient, info: ImageInCreate, image):
     data = info.dict()
     data["image"] = s3_upload(image)
-    data["datetime"] = datetime.now().timestamp()
+    data["datetime"] = calendar.timegm(time.gmtime())
     results = data.copy()
     conn[database_name][image_collection_name].insert_one(data)
     return results

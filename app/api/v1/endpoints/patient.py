@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, Body
 from pymongo import MongoClient
+from uuid import uuid4
 
 from starlette.exceptions import HTTPException
 
@@ -23,7 +24,6 @@ def retrieve_current_patient(patientId: str, db: MongoClient = Depends(get_datab
     if len(check) < 0:
         raise HTTPException(status_code=403, detail="User Not found")
     else:
-        check[0]["_id"] = str(check[0]["_id"])
         return check
 
 @router.post("/patient/add", dependencies=[Depends(validate_token)], tags=["Patient"])
@@ -33,6 +33,7 @@ def add_patient(patient: Patient = Depends(), db: MongoClient = Depends(get_data
         raise HTTPException(status_code=403, detail="Patient Exists")
     else:
         data = patient.dict()
+        data["id"] = str(uuid4())
         create_patient(db, patient)
         return data
 
