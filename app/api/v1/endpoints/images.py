@@ -1,6 +1,8 @@
 from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
 from pymongo.mongo_client import MongoClient
+import calendar
+import time
 
 from ....crud.image import create_image, get_images, get_one_image, delete_image, update_image, s3_upload
 from ....db.mongodb import get_database
@@ -28,21 +30,22 @@ def get_images(
     info: ImageInCreate = Depends(),
     db: MongoClient=Depends(get_database)
 ):
+    print(info.dict())
     data = create_image(db, info, image)
     return data
 
-# @router.put("/image/{imageId}/update", dependencies=[Depends(validate_token)], tags=["Images"])
-# def update_current_image(
-#     imageId: str,
-#     info: ImageInUpdate=Depends(),
-#     db: MongoClient=Depends(get_database)
-# ):
-#     check = get_one_image(db, imageId)
-#     if len(check) < 0:
-#         raise HTTPException(status_code=403, detail="Image Not found")
-#     else:
-#         update_image(db, info, imageId)
-#         return info.dict()
+@router.put("/image/{imageId}/update", dependencies=[Depends(validate_token)], tags=["Images"])
+def update_current_image(
+    imageId: str,
+    info: ImageInUpdate=Depends(),
+    db: MongoClient=Depends(get_database)
+):
+    check = get_one_image(db, imageId)
+    if len(check) < 0:
+        raise HTTPException(status_code=403, detail="Image Not found")
+    else:
+        update_image(db, info, imageId)
+        return info.dict()
 
 @router.delete("/image/{imageId}/delete", dependencies=[Depends(validate_token)], tags=["Images"])
 def delete_current_images(
