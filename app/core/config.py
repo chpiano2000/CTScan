@@ -14,3 +14,4 @@ database_name = PROJECT_NAME
 users_collection_name = "users"
 patient_collection_name = "patient"
 admin_collection_name = "admin"
+image_collection_name = "image"
