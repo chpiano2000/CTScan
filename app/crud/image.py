@@ -21,9 +21,9 @@ def create_image(conn: MongoClient, info: ImageInCreate, image):
     data = info.dict()
     data["image"] = s3_upload(image)
     data["datetime"] = datetime.now().timestamp()
-    data["patient"] = ObjectId(data["patient"])
-    data["takenBy"] = ObjectId(data["takenBy"])
     conn[database_name][image_collection_name].insert_one(data)
+    data["patient"] = str(data["patient"])
+    data["takenBy"] = str(data["takenBy"])
     import pdb
     pdb.set_trace()
     return data
