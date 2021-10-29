@@ -2,8 +2,10 @@ import pdb
 from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
 from pymongo.mongo_client import MongoClient
+from uuid import uuid4
 import calendar
 import time
+
 
 from ....crud.image import create_image, get_images, get_one_image, delete_image, update_image, s3_upload
 from ....db.mongodb import get_database
@@ -36,6 +38,7 @@ def add_current_images(
     data["datetime"] = calendar.timegm(time.gmtime())
     data["patient"] = str(data["patient"])
     data["takenBy"] = str(data["takenBy"])
+    data["id"] = str(uuid4().fields[-1])[:5]
     results = data.copy()
     create_image(db, data)
     return results
