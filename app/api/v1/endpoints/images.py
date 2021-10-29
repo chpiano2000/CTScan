@@ -36,7 +36,7 @@ def get_images(
     data["image"] = s3_upload(image)
     data["datetime"] = calendar.timegm(time.gmtime())
     results = data.copy()
-    data = create_image(db, info, image)
+    data = create_image(db, info)
     return results
 
 @router.put("/image/{imageId}/update", dependencies=[Depends(validate_token)], tags=["Images"])
