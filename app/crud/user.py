@@ -47,7 +47,7 @@ def update_user(conn: MongoClient, info: UserInUpdate, doctorId: str):
     dbuser[0]["gender"] = info.gender or dbuser[0]["gender"]
 
     if info.password:
-        get_password_hash(dbuser.password)
+        get_password_hash(dbuser[0]["password"])
 
     update = conn[database_name][users_collection_name].update_one({"id": doctorId}, {"$set": dbuser[0]})
     return update
