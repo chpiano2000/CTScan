@@ -15,7 +15,7 @@ def s3_upload(image):
         bucket.upload_fileobj(data, f"Image/{image.filename}") #upload to S3
         os.remove(image.filename) 
 
-    return "https://s3-%s.amazonaws.com/%s/%s" % (location, 'final-web-usth/Image/', image.filename)
+    return "https://s3-%s.amazonaws.com/%s/%s" % (location, 'final-web-usth/Image', image.filename)
 
 def get_images(conn: MongoClient, options: str = None):
     if options:
