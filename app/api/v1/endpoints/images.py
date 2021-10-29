@@ -14,8 +14,8 @@ from ....models.image import ImageInCreate, ImageInUpdate, Image
 router = APIRouter()
 
 @router.get("/images", dependencies=[Depends(validate_token)], tags=["Images"])
-def retrive_all_iamges(
-    options: Optional[str]=Depends(),
+def retrive_all_images(
+    options: Optional[str],
     db: MongoClient=Depends(get_database)
 ):
     data = get_images(db, options)
