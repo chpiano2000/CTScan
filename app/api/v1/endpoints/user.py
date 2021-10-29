@@ -42,6 +42,7 @@ def add_current_doctor(
     firstName: str,
     lastName: str,
     gender: str,
+    department: str,
     db: MongoClient=Depends(get_database),
     auth: str=Depends(validate_token)
 ):
@@ -58,7 +59,8 @@ def add_current_doctor(
                 "password": password,
                 "firstName": firstName,
                 "lastName": lastName,
-                "gender": gender
+                "gender": gender,
+                "department": department
             }
             data["id"] = str(uuid4())
             results = data.copy()

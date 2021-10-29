@@ -25,15 +25,6 @@ def login(user: UserInLogin = Depends(), db: MongoClient = Depends(get_database)
     else:
         raise HTTPException(status_code=404, detail="Incorect email or password") 
 
-# @router.post("/user/register", response_model=User, tags=["Authentication"])
-# def register(user: User, db: MongoClient = Depends(get_database)):
-#     check = get_user(db, user.email)
-#     if len(check) > 0:
-#         raise HTTPException(status_code=403, detail="User is already exist") 
-#     else:
-#         data = create_user(db, user)
-#         return data
-
 @router.post("/admin/login", tags=["Authentication"])
 def admin_login(admin: Admin = Depends(), db: MongoClient = Depends(get_database)):
     dbadmin = get_admin(db, admin.username)
@@ -46,12 +37,3 @@ def admin_login(admin: Admin = Depends(), db: MongoClient = Depends(get_database
     else:
         raise HTTPException(status_code=404, detail="Incorect email or password") 
         
-
-# @router.post("/admin/register", tags=["Authentication"])
-# def admin_register(admin: Admin, db: MongoClient = Depends(get_database)):
-#     check = get_admin(db, admin.username)
-#     if len(check) > 0:
-#         raise HTTPException(status_code=403, detail="email not valide") 
-#     else:
-#         data = create_admin(db, admin)
-#         return data
