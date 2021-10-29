@@ -15,7 +15,7 @@ class Image(BaseModel):
 class ImageInUpdate(BaseModel):
     patient: Optional[str] = None
     takenBy: Optional[str] = None 
-    date: Optional[datetime] = None 
+    date: Optional[int] = None 
     category: Optional[int] = None 
 
 class ImageInCreate(BaseModel):
