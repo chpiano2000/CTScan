@@ -6,7 +6,7 @@ from starlette.exceptions import HTTPException
 from ....core.config import ACCESS_TOKEN_EXPIRE_MINUTES
 from ....core.security import verify_password
 from ....core.jwt import generate_token
-from ....crud.user import create_admin, get_admin, get_user, create_user, get_user_by_email
+from ....crud.user import create_admin, get_admin, get_user_by_email
 from ....db.mongodb import get_database
 from ....models.user import User, UserInLogin
 from ....models.admin import Admin 
@@ -36,4 +36,3 @@ def admin_login(admin: Admin = Depends(), db: MongoClient = Depends(get_database
             raise HTTPException(status_code=400, detail="Incorect email or password")
     else:
         raise HTTPException(status_code=404, detail="Incorect email or password") 
-        
